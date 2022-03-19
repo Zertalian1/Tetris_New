@@ -1,7 +1,7 @@
 package com.example.tetris_new;
 
 import com.example.tetris_new.model.Figure;
-import com.example.tetris_new.model.FormI;
+import com.example.tetris_new.model.FigureI;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,7 +34,7 @@ public class HelloApplication extends Application {
         for(int i=0;i<5;i++){
             figure.add(new Rectangle(i,i));
         }
-        Figure a = new FormI(figure);
+       // Figure a = new FigureI(figure);
         //a.moveDown(l);
         launch();
     }

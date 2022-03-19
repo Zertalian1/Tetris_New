@@ -3,8 +3,7 @@ package com.example.tetris_new.Controller;
 import com.example.tetris_new.model.*;
 import javafx.scene.shape.Rectangle;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class FigureController {
     public static int SIZE =25;
@@ -14,9 +13,9 @@ public class FigureController {
 
     public FigureController(int SIZE, int XMAX, int YMAX){
         makeRect();
-        this.SIZE= SIZE;
-        this.XMAX = XMAX;
-        this.YMAX = YMAX;
+        FigureController.SIZE = SIZE;
+        FigureController.XMAX = XMAX;
+        FigureController.YMAX = YMAX;
     }
 
     public static Figure getFigure() {
@@ -29,7 +28,7 @@ public class FigureController {
                 return false;
         }
         for(Rectangle a: figure.getFigure()){
-            a.setX(a.getX()+1);
+            a.setX(a.getX()+SIZE);
         }
         return true;
     }
@@ -40,7 +39,7 @@ public class FigureController {
                 return false;
         }
         for(Rectangle a: figure.getFigure()){
-            a.setX(a.getX()-1);
+            a.setX(a.getX()-SIZE);
         }
         return true;
     }
@@ -80,74 +79,32 @@ public class FigureController {
     }
 
     public void makeRect(){
-        int block = (int)((Math.random()*100)%7);
-        List<Rectangle> new_figure = new ArrayList<>();
-        if(block==0){   //j
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,2*SIZE,SIZE-1,SIZE-1)); //d
-            new_figure.add(new Rectangle(XMAX/2-SIZE,2*SIZE,SIZE-1,SIZE-1)); //c
-            figure =  new FormJ(new_figure);
-            //   a
-            //   b
-            // c d
+        Figures figures = Figures.randomLetter();
+        switch (figures){
+            case J -> figure = new FigureJ(XMAX, SIZE);
+            case L -> figure = new FigureL(XMAX, SIZE);
+            case O -> figure = new FigureO(XMAX, SIZE);
+            case S -> figure = new FigureS(XMAX, SIZE);
+            case T -> figure = new FigureT(XMAX, SIZE);
+            case Z -> figure = new FigureZ(XMAX, SIZE);
+            case I -> figure = new FigureI(XMAX, SIZE);
         }
-        if(block==1){   //l
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,2*SIZE,SIZE-1,SIZE-1)); //d
-            new_figure.add(new Rectangle(XMAX/2+SIZE,2*SIZE,SIZE-1,SIZE-1)); //c
-            figure = new FormL(new_figure);
-            //  a
-            //   b
-            //  d c
-        }
-        if(block==2){   //o
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2+SIZE,0,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //d
-            new_figure.add(new Rectangle(XMAX/2+SIZE,SIZE,SIZE-1,SIZE-1)); //c
-            figure = new FormO(new_figure);
-            //  a b
-            //  c d
-        }
-        if(block==3){   //s
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2+SIZE,0,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //d
-            new_figure.add(new Rectangle(XMAX/2-SIZE,SIZE,SIZE-1,SIZE-1)); //c
-            figure = new FormS(new_figure);
-            //    a b
-            //  c d
-        }
-        if(block==4){   //t
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2-SIZE,SIZE,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //c
-            new_figure.add(new Rectangle(XMAX/2+SIZE,SIZE,SIZE-1,SIZE-1)); //d
-            figure = new FormT(new_figure);
-            //    a
-            //  b c d
-        }
-        if(block==5){   //z
-            new_figure.add(new Rectangle(XMAX/2-SIZE,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //c
-            new_figure.add(new Rectangle(XMAX/2+SIZE,SIZE,SIZE-1,SIZE-1)); //d
-            figure = new FormZ(new_figure);
-            //   a b
-            //     c d
-        }
-        if(block==6){   //i
-            new_figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-            new_figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //b
-            new_figure.add(new Rectangle(XMAX/2,2*SIZE,SIZE-1,SIZE-1));
-            new_figure.add(new Rectangle(XMAX/2,3*SIZE,SIZE-1,SIZE-1));
-            figure = new FormI(new_figure);
-            //  a
-            //  b
-            //  d
-            //  c
+    }
+    enum Figures {
+        I,
+        J,
+        L,
+        O,
+        S,
+        T,
+        Z;
+        private static final List<Figures> VALUES =
+                List.of(values());
+        private static final int SIZE = VALUES.size();
+        private static final Random RANDOM = new Random();
+
+        public static Figures randomLetter()  {
+            return VALUES.get(RANDOM.nextInt(SIZE));
         }
     }
 
