@@ -9,5 +9,5 @@ public class MainMenu {
         return XMAX;
     };
 
-    enum
+
 }

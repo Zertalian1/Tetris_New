@@ -1,32 +1,14 @@
 package com.example.tetris_new.model;
-
-import javafx.scene.Node;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
 import java.util.List;
 
-public  interface /*abstract class*/ Figure {
-    /*protected List<Rectangle> figure = new ArrayList<>();
-    private int form = 1;
+public  interface  Figure {
 
-    Figure(List<Rectangle> blocks,Color color){
-        for(Rectangle a: blocks){
-            a.setFill(color);
-            figure.add(a);
-        }
+    public List<Rectangle> getFields();
+    default boolean checkPlace(Rectangle a, int X, int Y, int[][] MESH, int SIZE) {
+        return a.getX() / SIZE + X < MESH.length && a.getY() / SIZE + Y < MESH[0].length &&
+                a.getX() / SIZE + X >= 0 && a.getY() / SIZE + Y >= 0 &&
+                MESH[(int) (a.getX() / SIZE + X)][(int) (a.getY() / SIZE + Y)] == 0;
     }
-    Figure() {}
-
-    protected void changeForm(){
-        if(form!=4) form++;
-        else form=1;
-    }*/
-
-    public List<Rectangle> getFigure();
-
-    public abstract void moveTurn(int [][] MESH);
+    public abstract void moveTurn(int [][] MESH, int SIZE); // фигура не знает, что её будут помещать на поле или переименовать в м
 }
-// добавить интрфейс

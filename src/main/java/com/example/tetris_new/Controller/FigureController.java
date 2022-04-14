@@ -6,9 +6,9 @@ import javafx.scene.shape.Rectangle;
 import java.util.*;
 
 public class FigureController {
-    public static int SIZE =25;
-    public static int XMAX = SIZE*12;
-    public static int YMAX = SIZE*15;
+    public static int SIZE = GameController.SIZE;
+    public static int XMAX = GameController.XMAX;
+    public static int YMAX = GameController.YMAX;
     private static Figure figure;
 
     public FigureController(int SIZE, int XMAX, int YMAX){
@@ -22,34 +22,32 @@ public class FigureController {
         return figure;
     }
 
-    public static boolean moveRight(int[][] MESH){
-        for(Rectangle a: figure.getFigure()){
+    public static void moveRight(int[][] MESH){
+        for(Rectangle a: figure.getFields()){
             if(!checkPlace(a,MESH, 1, 0))
-                return false;
+                return;
         }
-        for(Rectangle a: figure.getFigure()){
+        for(Rectangle a: figure.getFields()){
             a.setX(a.getX()+SIZE);
         }
-        return true;
     }
 
-    public static boolean moveLeft(int[][] MESH){
-        for(Rectangle a: figure.getFigure()){
+    public static void moveLeft(int[][] MESH){
+        for(Rectangle a: figure.getFields()){
             if(!checkPlace(a,MESH, -1, 0))
-                return false;
+                return;
         }
-        for(Rectangle a: figure.getFigure()){
+        for(Rectangle a: figure.getFields()){
             a.setX(a.getX()-SIZE);
         }
-        return true;
     }
 
     public static boolean moveDown(int[][] MESH) {
-        for (Rectangle a : figure.getFigure()) {
+        for (Rectangle a : figure.getFields()) {
             if (!checkPlace(a, MESH, 0, 1))
                 return false;
         }
-        for (Rectangle a : figure.getFigure()) {
+        for (Rectangle a : figure.getFields()) {
             a.setY(a.getY() + SIZE);
         }
         return true;
@@ -71,7 +69,7 @@ public class FigureController {
     }
 
     public static boolean checkSpawn(int[][] MESH){
-        for (Rectangle a : figure.getFigure()) {
+        for (Rectangle a : figure.getFields()) {
             if (!checkPlace(a, MESH, 0, 0))
                 return false;
         }
@@ -79,7 +77,8 @@ public class FigureController {
     }
 
     public void makeRect(){
-        Figures figures = Figures.randomLetter();
+        //Figures figures = Figures.randomLetter();
+        Figures figures = Figures.I;
         switch (figures){
             case J -> figure = new FigureJ(XMAX, SIZE);
             case L -> figure = new FigureL(XMAX, SIZE);
@@ -98,8 +97,7 @@ public class FigureController {
         S,
         T,
         Z;
-        private static final List<Figures> VALUES =
-                List.of(values());
+        private static final List<Figures> VALUES =  List.of(values());
         private static final int SIZE = VALUES.size();
         private static final Random RANDOM = new Random();
 
@@ -109,5 +107,6 @@ public class FigureController {
     }
 
     public void moveTurn(int[][] mesh) {
+        figure.moveTurn(mesh, SIZE);
     }
 }

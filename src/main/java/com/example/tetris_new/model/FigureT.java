@@ -27,12 +27,12 @@ public class FigureT implements Figure{
     }
 
     @Override
-    public List<Rectangle> getFigure() {
+    public List<Rectangle> getFields() {
         return figure;
     }
 
     @Override
-    public void moveTurn(int [][] MESH) {
+    public void moveTurn(int [][] MESH, int SIZE) {
 
     }
 }
