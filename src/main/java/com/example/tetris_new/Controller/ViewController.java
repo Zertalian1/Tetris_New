@@ -42,48 +42,5 @@ public class ViewController {
 
     public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){
         view.RemoveRows(lines, MESH, SIZE);
-        /*List<Node> rects = new ArrayList<>();
-        List<Node> newrects = new ArrayList<>();
-        if (lines.size() > 0)
-            do {
-                // получаем все фигуры из group
-                for (Node node : view.getField()) {
-                    if (node instanceof Rectangle)
-                        rects.add(node);
-                }
-                // удаляем заполненные строки, не заполненные записываем в newrects
-                for (Node node : rects) {
-                    Rectangle a = (Rectangle) node;
-                    if (a.getY() == lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
-                        view.getField().remove(node);
-                    } else
-                        newrects.add(node);
-                }
-                // опускаем все фигуры вниз
-                for (Node node : newrects) {
-                    Rectangle a = (Rectangle) node;
-                    if (a.getY() < lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
-                        a.setY(a.getY() + SIZE);
-                    }
-                }
-                lines.remove(0);
-                rects.clear();
-                newrects.clear();
-                // помечаем фигуры на новых местах в поле
-                for (Node node : view.getField()) {
-                    if (node instanceof Rectangle)
-                        rects.add(node);
-                }
-                for (Node node : rects) {
-                    Rectangle a = (Rectangle) node;
-                    try {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
-                    } catch (ArrayIndexOutOfBoundsException ignored) {
-                    }
-                }
-                rects.clear();
-            } while (lines.size() > 0);*/
     }
 }

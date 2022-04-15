@@ -9,7 +9,7 @@ import java.util.List;
 public class FigureJ implements Figure{
     protected List<Rectangle> figure = new ArrayList<>();
     private final Color color = Color.SLATEGREY;
-    private int form = 0;
+
     public FigureJ(int XMAX, int SIZE) {
         figure.add(new Rectangle(XMAX >> 1,0,SIZE-1,SIZE-1)); //a
         figure.add(new Rectangle(XMAX >> 1,SIZE,SIZE-1,SIZE-1)); //b
@@ -31,7 +31,7 @@ public class FigureJ implements Figure{
 
     @Override
     public void moveTurn(int [][] MESH, int SIZE) {
-        switch (form){
+        /*switch (form){
             case 0 -> {
                 if (checkPlace(figure.get(0), -1, 1, MESH, SIZE) && checkPlace(figure.get(2), 1, -1, MESH, SIZE)
                         && checkPlace(figure.get(3), 2, 0, MESH, SIZE)) {
@@ -68,7 +68,8 @@ public class FigureJ implements Figure{
                     form = (++form)%4;
                 }
             }
-        }
+        }*/
+        turn(figure, figure.get(1).getX(), figure.get(1).getY(), MESH, SIZE);
 
 
     }

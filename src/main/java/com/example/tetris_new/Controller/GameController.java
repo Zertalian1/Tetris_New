@@ -12,7 +12,7 @@ import java.util.TimerTask;
 public class GameController {
     public static final int SIZE =25;
     public static final int XMAX = SIZE*12;
-    public static final int YMAX = SIZE*15;
+    public static final int YMAX = SIZE*20;
     private static int timer = 0;
     private static ViewController viewController;
 
@@ -28,7 +28,7 @@ public class GameController {
             for(Rectangle a: FigureController.getFigure().getFields()){
                 MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
             }
-            RemoveRows();                                                                         // удаление заполненной строки
+            RemoveRows();
             figureController.makeRect();
             if(!FigureController.checkSpawn(MESH)){
                 game = false;
@@ -51,7 +51,7 @@ public class GameController {
             if (full == MESH.length)
                 lines.add(i);
             full = 0;
-        }                   // нашли заполненные строки
+        }
         viewController.RemoveRows(lines, MESH, SIZE);
     }
 
@@ -59,6 +59,7 @@ public class GameController {
     public void startGame(Stage stage){
         viewController = new ViewController(stage, XMAX, YMAX);
         viewController.printFigure(figureController);
+
         Timer fall = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -67,6 +68,7 @@ public class GameController {
                     viewController.printText(score);
                     if (game) {
                         moveFigureDown();
+
                     } else {
                         viewController.printText("GAME OVER");
                         timer++;
@@ -80,20 +82,6 @@ public class GameController {
                             fall.cancel();
                             stage.close();
                         }
-
-                        /*List<Integer> scores = null;
-                        try {
-                            scores = readFile();
-                            scores.add(score);
-                            Collections.sort(scores, Collections.reverseOrder());
-                            writeFile(scores);
-                            Thread.sleep(6000);
-                        } catch (InterruptedException | IOException e) {
-                            e.printStackTrace();
-                        }
-                        finally {
-                            System.exit(0);
-                        }*/
                     }
 
                 });

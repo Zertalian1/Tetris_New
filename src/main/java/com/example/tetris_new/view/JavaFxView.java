@@ -40,7 +40,7 @@ public class JavaFxView implements Viewer{
     }
 
     @Override
-    public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){
+    public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){           // переписать
         List<Node> rects = new ArrayList<>();
         List<Node> newrects = new ArrayList<>();
         if (lines.size() > 0)

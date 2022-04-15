@@ -77,8 +77,8 @@ public class FigureController {
     }
 
     public void makeRect(){
-        //Figures figures = Figures.randomLetter();
-        Figures figures = Figures.I;
+        Figures figures = Figures.randomLetter();
+        //Figures figures = Figures.Z;
         switch (figures){
             case J -> figure = new FigureJ(XMAX, SIZE);
             case L -> figure = new FigureL(XMAX, SIZE);

@@ -12,10 +12,10 @@ public class FigureO implements Figure{
     private final Color color = Color.INDIANRED;
 
     public FigureO(int XMAX, int SIZE) {
-        figure.add(new Rectangle(XMAX/2,0,SIZE-1,SIZE-1)); //a
-        figure.add(new Rectangle(XMAX/2+SIZE,0,SIZE-1,SIZE-1)); //b
-        figure.add(new Rectangle(XMAX/2,SIZE,SIZE-1,SIZE-1)); //d
-        figure.add(new Rectangle(XMAX/2+SIZE,SIZE,SIZE-1,SIZE-1)); //c
+        figure.add(new Rectangle(XMAX >> 1,0,SIZE-1,SIZE-1)); //a
+        figure.add(new Rectangle((XMAX >> 1) +SIZE,0,SIZE-1,SIZE-1)); //b
+        figure.add(new Rectangle(XMAX >> 1,SIZE,SIZE-1,SIZE-1)); //d
+        figure.add(new Rectangle((XMAX >> 1) +SIZE,SIZE,SIZE-1,SIZE-1)); //c
         SetColor();
     }
 
