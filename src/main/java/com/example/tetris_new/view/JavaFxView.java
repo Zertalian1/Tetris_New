@@ -40,10 +40,10 @@ public class JavaFxView implements Viewer{
     }
 
     @Override
-    public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){           // переписать
+    public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){           // переписать здесь должны только стираться Rects из group
         List<Node> rects = new ArrayList<>();
         List<Node> newrects = new ArrayList<>();
-        if (lines.size() > 0)
+        if (lines.size() > 0) {
             do {
                 // получаем все фигуры из group
                 for (Node node : group.getChildren()) {
@@ -84,6 +84,7 @@ public class JavaFxView implements Viewer{
                 }
                 rects.clear();
             } while (lines.size() > 0);
+        }
     }
 
     @Override
