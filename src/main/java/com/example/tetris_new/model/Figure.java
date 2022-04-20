@@ -12,11 +12,11 @@ public  interface  Figure {
                 X >= 0 && Y >= 0 &&
                 MESH[(int)X][(int)Y] == 0;
     }
-    default void turn(List<Rectangle> figure, double CentrX, double CentrY, int [][] MESH, int SIZE){
+    default void turn(List<Rectangle> figure, double CentreX, double CentreY, int [][] MESH, int SIZE){
         List<Rectangle> figure1 = new ArrayList<>(figure);
         for(Rectangle a: figure1){
-            double X = -a.getY() + CentrY + CentrX;
-            double Y = a.getX() - CentrX + CentrY;
+            double X = -a.getY() + CentreY + CentreX;
+            double Y = a.getX() - CentreX + CentreY;
             if(!checkPlace(X/SIZE, Y/SIZE, MESH)){
                 return;
             }

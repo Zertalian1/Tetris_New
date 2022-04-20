@@ -1,6 +1,7 @@
 package com.example.tetris_new.Controller;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -34,7 +35,7 @@ public class GameController {
                 game = false;
             }else {
                 score++;
-                viewController.printFigure(figureController);
+                viewController.printFigure();
             }
         }
         viewController.moveOnKeyPress(MESH, figureController);
@@ -52,13 +53,29 @@ public class GameController {
                 lines.add(i);
             full = 0;
         }
-        viewController.RemoveRows(lines, MESH, SIZE);
+        List<Node> rows = viewController.RemoveRows(lines, MESH, SIZE);
+        clearM();
+        for (Node node : rows) {
+            Rectangle a = (Rectangle) node;
+            try {
+                MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
+            } catch (ArrayIndexOutOfBoundsException ignored) {
+            }
+        }
+    }
+
+    private void clearM() {
+        for(int i=0;i< XMAX/SIZE;i++){
+            for(int j=0;j< YMAX/SIZE;j++){
+                MESH[i][j]=0;
+            }
+        }
     }
 
 
     public void startGame(Stage stage){
         viewController = new ViewController(stage, XMAX, YMAX);
-        viewController.printFigure(figureController);
+        viewController.printFigure();
 
         Timer fall = new Timer();
         TimerTask task = new TimerTask() {

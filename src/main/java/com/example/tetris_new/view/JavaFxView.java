@@ -40,51 +40,41 @@ public class JavaFxView implements Viewer{
     }
 
     @Override
-    public void RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){           // переписать здесь должны только стираться Rects из group
-        List<Node> rects = new ArrayList<>();
-        List<Node> newrects = new ArrayList<>();
+    public List<Node> RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){
+        List<Node> rows = new ArrayList<>();
+        List<Node> new_rows = new ArrayList<>();
         if (lines.size() > 0) {
             do {
                 // получаем все фигуры из group
                 for (Node node : group.getChildren()) {
                     if (node instanceof Rectangle)
-                        rects.add(node);
+                        rows.add(node);
                 }
-                // удаляем заполненные строки, не заполненные записываем в newrects
-                for (Node node : rects) {
+                // удаляем заполненные строки, не заполненные записываем в new_rows
+                for (Node node : rows) {
                     Rectangle a = (Rectangle) node;
                     if (a.getY() == lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
                         group.getChildren().remove(node);
                     } else
-                        newrects.add(node);
+                        new_rows.add(node);
                 }
                 // опускаем все фигуры вниз
-                for (Node node : newrects) {
+                for (Node node : new_rows) {
                     Rectangle a = (Rectangle) node;
                     if (a.getY() < lines.get(0) * SIZE) {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 0;
                         a.setY(a.getY() + SIZE);
                     }
                 }
                 lines.remove(0);
-                rects.clear();
-                newrects.clear();
-                // помечаем фигуры на новых местах в поле
-                for (Node node : group.getChildren()) {
-                    if (node instanceof Rectangle)
-                        rects.add(node);
-                }
-                for (Node node : rects) {
-                    Rectangle a = (Rectangle) node;
-                    try {
-                        MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
-                    } catch (ArrayIndexOutOfBoundsException ignored) {
-                    }
-                }
-                rects.clear();
+                rows.clear();
+                new_rows.clear();
             } while (lines.size() > 0);
         }
+        for (Node node : group.getChildren()) {
+            if (node instanceof Rectangle)
+                rows.add(node);
+        }
+        return rows;
     }
 
     @Override
