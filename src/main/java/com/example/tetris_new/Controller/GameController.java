@@ -1,14 +1,11 @@
 package com.example.tetris_new.Controller;
 
-import javafx.application.Platform;
-import javafx.scene.Node;
+import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class GameController {
     public static final int SIZE =25;
@@ -21,6 +18,9 @@ public class GameController {
     private static final FigureController figureController = new FigureController(SIZE,XMAX,YMAX);
     private static boolean game = true;
     private static int score = 1;
+    private long speed = 400_000_000;
+    private final long minSpeed = 300_000_000;
+    private final long increaseSpeed = 20_000_000;
 
 
 
@@ -31,6 +31,10 @@ public class GameController {
             }
             RemoveRows();
             figureController.makeRect();
+            if(score%2==0 && speed > minSpeed){
+                speed -=increaseSpeed;
+            }
+
             if(!FigureController.checkSpawn(MESH)){
                 game = false;
             }else {
@@ -49,40 +53,39 @@ public class GameController {
                 if (mesh[i] == 1)
                     full++;
             }
-            if (full == MESH.length)
+            if (full == XMAX/SIZE)
                 lines.add(i);
             full = 0;
         }
-        List<Node> rows = viewController.RemoveRows(lines, MESH, SIZE);
-        clearM();
-        for (Node node : rows) {
-            Rectangle a = (Rectangle) node;
-            try {
-                MESH[(int) a.getX() / SIZE][(int) a.getY() / SIZE] = 1;
-            } catch (ArrayIndexOutOfBoundsException ignored) {
+        removeLine(lines);
+        viewController.RemoveRows(lines, SIZE);
+    }
+
+    private void removeLine(List<Integer> lines) {
+        int i=0;
+        while (lines.size()>i){
+            for(int y = lines.get(i);y>=0;y--){
+                for(int x = 0;x<XMAX/SIZE;x++){
+                    GameController.MESH[x][y] = (y == 0)? 0 : GameController.MESH[x][y-1];
+                }
             }
+            i++;
         }
     }
 
-    private void clearM() {
-        for(int i=0;i< XMAX/SIZE;i++){
-            for(int j=0;j< YMAX/SIZE;j++){
-                MESH[i][j]=0;
-            }
-        }
-    }
+
+
 
 
     public void startGame(Stage stage){
         viewController = new ViewController(stage, XMAX, YMAX);
         viewController.printFigure();
+        AnimationTimer at = new AnimationTimer(){
+            private long lastUpdate = 0 ;
 
-        Timer fall = new Timer();
-        TimerTask task = new TimerTask() {
             @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    viewController.printText(score);
+            public void handle(long now) {
+                if (now - lastUpdate >= speed) {
                     if (game) {
                         moveFigureDown();
 
@@ -96,15 +99,19 @@ public class GameController {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         } finally {
-                            fall.cancel();
                             stage.close();
                         }
                     }
 
-                });
+                    System.out.println(speed);
+                    lastUpdate = now ;
+                }
+                viewController.printText(score);
             }
         };
-
-        fall.schedule(task,0,400);
+        at.start();
+        if(timer == 2){
+            at.stop();
+        }
     }
 }

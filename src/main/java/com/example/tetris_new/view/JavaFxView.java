@@ -19,11 +19,11 @@ public class JavaFxView implements Viewer{
     Text scoretext = new Text("Score: ");
 
     @Override
-    public void start(Stage stage, int XMAX, int YMAX){
+    public void start(Pane gr, Scene sc, Stage stage, int XMAX, int YMAX){
         this.XMAX = XMAX;
         this.YMAX = YMAX;
-        group = new Pane();
-        scene = new Scene(group, XMAX+150,YMAX);
+        group = gr;
+        scene = sc;
         scoretext.setStyle("-fx-font: 20 arial;");
         scoretext.setY(50);
         scoretext.setX(XMAX + 5);
@@ -35,12 +35,7 @@ public class JavaFxView implements Viewer{
     }
 
     @Override
-    public Scene getScene() {
-        return scene;
-    }
-
-    @Override
-    public List<Node> RemoveRows(List<Integer> lines, int [][] MESH, int SIZE){
+    public void RemoveRows(List<Integer> lines, int SIZE){
         List<Node> rows = new ArrayList<>();
         List<Node> new_rows = new ArrayList<>();
         if (lines.size() > 0) {
@@ -70,11 +65,6 @@ public class JavaFxView implements Viewer{
                 new_rows.clear();
             } while (lines.size() > 0);
         }
-        for (Node node : group.getChildren()) {
-            if (node instanceof Rectangle)
-                rows.add(node);
-        }
-        return rows;
     }
 
     @Override

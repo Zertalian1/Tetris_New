@@ -13,18 +13,21 @@ public  interface  Figure {
                 MESH[(int)X][(int)Y] == 0;
     }
     default void turn(List<Rectangle> figure, double CentreX, double CentreY, int [][] MESH, int SIZE){
-        List<Rectangle> figure1 = new ArrayList<>(figure);
-        for(Rectangle a: figure1){
-            double X = -a.getY() + CentreY + CentreX;
-            double Y = a.getX() - CentreX + CentreY;
-            if(!checkPlace(X/SIZE, Y/SIZE, MESH)){
+        double [][] move = new double[figure.size()][2];
+        int i=0;
+        for(Rectangle a: figure) {
+            move[i][0] = -a.getY() + CentreY + CentreX;
+            move[i][1] = a.getX() - CentreX + CentreY;
+            if (!checkPlace( move[i][0] / SIZE, move[i][1] / SIZE, MESH)) {
                 return;
             }
-            a.setY(Y);
-            a.setX(X);
+            i++;
         }
-        for (int i = 0; i< figure1.size();i++){
-            figure.set(i, figure1.get(i));
+        i=0;
+        for(Rectangle a: figure){
+            a.setY(move[i][1]);
+            a.setX(move[i][0]);
+            i++;
         }
     }
     void moveTurn(int[][] MESH, int SIZE);

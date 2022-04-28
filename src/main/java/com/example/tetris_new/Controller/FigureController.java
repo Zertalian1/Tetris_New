@@ -1,6 +1,7 @@
 package com.example.tetris_new.Controller;
 
 import com.example.tetris_new.model.*;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 
 import java.util.*;
@@ -68,7 +69,7 @@ public class FigureController {
         return checkX && checkY && MESH[(int)part.getX()/SIZE+x][(int)part.getY()/SIZE+y]==0;
     }
 
-    public static boolean checkSpawn(int[][] MESH){
+    public static boolean checkSpawn(int[][] MESH){ ///
         for (Rectangle a : figure.getFields()) {
             if (!checkPlace(a, MESH, 0, 0))
                 return false;
@@ -78,7 +79,7 @@ public class FigureController {
 
     public void makeRect(){
         Figures figures = Figures.randomLetter();
-        //Figures figures = Figures.Z;
+        //Figures figures = Figures.I;
         switch (figures){
             case J -> figure = new FigureJ(XMAX, SIZE);
             case L -> figure = new FigureL(XMAX, SIZE);
