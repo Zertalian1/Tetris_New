@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,15 +14,13 @@ public class GameController {
     public static final int YMAX = SIZE*20;
     private static int timer = 0;
     private static ViewController viewController;
+    private static final DBController dbController= new DBController();
 
     private static final int [][] MESH = new int[XMAX/SIZE][YMAX/SIZE];
     private static final FigureController figureController = new FigureController(SIZE,XMAX,YMAX);
     private static boolean game = true;
     private static int score = 1;
     private long speed = 400_000_000;
-    private final long minSpeed = 300_000_000;
-    private final long increaseSpeed = 20_000_000;
-
 
 
     public void moveFigureDown() {
@@ -31,8 +30,8 @@ public class GameController {
             }
             RemoveRows();
             figureController.makeRect();
-            if(score%2==0 && speed > minSpeed){
-                speed -=increaseSpeed;
+            if(score%2==0 && speed > 300_000_000){
+                speed -= 20_000_000;
             }
 
             if(!FigureController.checkSpawn(MESH)){
@@ -42,7 +41,7 @@ public class GameController {
                 viewController.printFigure();
             }
         }
-        viewController.moveOnKeyPress(MESH, figureController);
+        moveOnKeyPress();
     }
 
     private  void RemoveRows()  {
@@ -73,7 +72,17 @@ public class GameController {
         }
     }
 
-
+    public  void moveOnKeyPress(){
+        viewController.getScene().setOnKeyPressed(event -> {
+            switch (event.getCode()) {
+                case RIGHT -> FigureController.moveRight(MESH);
+                case LEFT -> FigureController.moveLeft(MESH);
+                case DOWN -> FigureController.moveDown(MESH);
+                case UP -> figureController.moveTurn(MESH);
+                default -> System.out.println("Hi");
+            }
+        });
+    }
 
 
 
@@ -95,15 +104,14 @@ public class GameController {
                     }
                     if (timer == 2) {
                         try {
+                            dbController.addDataToDB("hero",score);
                             Thread.sleep(2000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        } catch (InterruptedException | SQLException e) {
+                            System.out.println("something went wrong");
                         } finally {
                             stage.close();
                         }
                     }
-
-                    System.out.println(speed);
                     lastUpdate = now ;
                 }
                 viewController.printText(score);

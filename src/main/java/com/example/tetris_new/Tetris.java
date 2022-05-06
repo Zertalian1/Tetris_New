@@ -4,7 +4,7 @@ import com.example.tetris_new.Controller.GameController;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class Main extends Application {
+public class Tetris extends Application {
 
     public static void main(String[] args) {
         launch(args);

@@ -15,7 +15,6 @@ public class JavaFxView implements Viewer{
     private int XMAX;
     private int YMAX;
     private static Pane group;
-    private static Scene scene;
     Text scoretext = new Text("Score: ");
 
     @Override
@@ -23,13 +22,12 @@ public class JavaFxView implements Viewer{
         this.XMAX = XMAX;
         this.YMAX = YMAX;
         group = gr;
-        scene = sc;
         scoretext.setStyle("-fx-font: 20 arial;");
         scoretext.setY(50);
         scoretext.setX(XMAX + 5);
         Line line = new Line(XMAX,0,XMAX,YMAX);
         group.getChildren().addAll(scoretext,line);
-        stage.setScene(scene);
+        stage.setScene(sc);
         stage.setTitle("Tetris");
         stage.show();
     }
