@@ -1,9 +1,7 @@
 package com.example.tetris_new.Controller;
 
 import com.example.tetris_new.model.*;
-import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
-
 import java.util.*;
 
 public class FigureController {
