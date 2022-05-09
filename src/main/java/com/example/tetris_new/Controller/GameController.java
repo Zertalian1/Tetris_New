@@ -4,7 +4,6 @@ import com.example.tetris_new.Tetris;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
