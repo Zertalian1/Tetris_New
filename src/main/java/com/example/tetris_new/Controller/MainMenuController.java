@@ -44,10 +44,7 @@ public class MainMenuController {
 
     private GameController gameController;
 
-    /**
-     * Конструктор.
-     * Конструктор вызывается раньше метода initialize().
-     */
+    // in progress .....
     public MainMenuController(){
 
     }

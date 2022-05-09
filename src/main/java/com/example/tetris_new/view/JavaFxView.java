@@ -29,6 +29,7 @@ public class JavaFxView implements Viewer{
         group.getChildren().addAll(scoretext,line);
         stage.setScene(sc);
         stage.setTitle("Tetris");
+        stage.setResizable(false);
         stage.show();
     }
 

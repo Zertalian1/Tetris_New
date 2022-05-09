@@ -31,44 +31,6 @@ public class FigureJ implements Figure{
 
     @Override
     public void moveTurn(int [][] MESH, int SIZE) {
-        /*switch (form){
-            case 0 -> {
-                if (checkPlace(figure.get(0), -1, 1, MESH, SIZE) && checkPlace(figure.get(2), 1, -1, MESH, SIZE)
-                        && checkPlace(figure.get(3), 2, 0, MESH, SIZE)) {
-                    turn(figure.get(0), -1, 1, SIZE);
-                    turn(figure.get(2), 1, -1, SIZE);
-                    turn(figure.get(3), 2, 0, SIZE);
-                    form = (++form)%4;
-                }
-            }
-            case 1 -> {
-                if (checkPlace(figure.get(0), 1, 1, MESH, SIZE) && checkPlace(figure.get(2), -1, -1, MESH, SIZE)
-                        && checkPlace(figure.get(3), 0, -2, MESH, SIZE)) {
-                    turn(figure.get(0), 1, 1, SIZE);
-                    turn(figure.get(2), -1, -1, SIZE);
-                    turn(figure.get(3), 0, -2, SIZE);
-                    form = (++form)%4;
-                }
-            }
-            case 2 -> {
-                if (checkPlace(figure.get(0), 1, -1, MESH, SIZE) && checkPlace(figure.get(2), -1, 1, MESH, SIZE)
-                        && checkPlace(figure.get(3), -2, 0, MESH, SIZE)) {
-                    turn(figure.get(0), 1, -1, SIZE);
-                    turn(figure.get(2), -1, 1, SIZE);
-                    turn(figure.get(3), -2, 0, SIZE);
-                    form = (++form)%4;
-                }
-            }
-            case 3 -> {
-                if (checkPlace(figure.get(0), -1, -1, MESH, SIZE) && checkPlace(figure.get(2), 1, 1, MESH, SIZE)
-                        && checkPlace(figure.get(3), 0, 2, MESH, SIZE)) {
-                    turn(figure.get(0), -1, -1, SIZE);
-                    turn(figure.get(2), 1, 1, SIZE);
-                    turn(figure.get(3), 0, 2, SIZE);
-                    form = (++form)%4;
-                }
-            }
-        }*/
         turn(figure, figure.get(1).getX(), figure.get(1).getY(), MESH, SIZE);
 
 

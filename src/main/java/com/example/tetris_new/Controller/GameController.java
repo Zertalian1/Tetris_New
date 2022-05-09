@@ -1,5 +1,6 @@
 package com.example.tetris_new.Controller;
 
+import com.example.tetris_new.Tetris;
 import javafx.animation.AnimationTimer;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -9,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameController {
-    public static final int SIZE =25;
-    public static final int XMAX = SIZE*12;
-    public static final int YMAX = SIZE*20;
+    public static final int SIZE = Tetris.SIZE;
+    public static final int XMAX = Tetris.XMAX;
+    public static final int YMAX = Tetris.YMAX;
     private static int timer = 0;
     private static ViewController viewController;
     private static final DBController dbController= new DBController();
@@ -20,7 +21,8 @@ public class GameController {
     private static final FigureController figureController = new FigureController(SIZE,XMAX,YMAX);
     private static boolean game = true;
     private static int score = 1;
-    private long speed = 400_000_000;
+    private long speed = Tetris.speed;
+    private long minSpeed = Tetris.minSpeed;
 
 
     public void moveFigureDown() {
@@ -30,7 +32,7 @@ public class GameController {
             }
             RemoveRows();
             figureController.makeRect();
-            if(score%2==0 && speed > 300_000_000){
+            if(score%2==0 && speed > minSpeed){
                 speed -= 20_000_000;
             }
 
@@ -104,9 +106,10 @@ public class GameController {
                     }
                     if (timer == 2) {
                         try {
-                            dbController.addDataToDB("hero",score);
+                            dbController.addDataToDB("Hero",score);
                             Thread.sleep(2000);
                         } catch (InterruptedException | SQLException e) {
+                            System.err.println(e.toString());
                             System.out.println("something went wrong");
                         } finally {
                             stage.close();
