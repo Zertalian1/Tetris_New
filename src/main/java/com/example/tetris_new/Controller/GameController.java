@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class GameController {
     public static final int SIZE = Tetris.SIZE;
@@ -21,7 +22,7 @@ public class GameController {
     private static boolean game = true;
     private static int score = 1;
     private long speed = Tetris.speed;
-    private long minSpeed = Tetris.minSpeed;
+    private final long minSpeed = Tetris.minSpeed;
 
 
     public void moveFigureDown() {
@@ -105,13 +106,13 @@ public class GameController {
                     }
                     if (timer == 2) {
                         try {
-                            dbController.addDataToDB("Hero",score);
-                            Thread.sleep(2000);
-                        } catch (InterruptedException | SQLException e) {
-                            System.err.println(e.toString());
-                            System.out.println("something went wrong");
-                        } finally {
                             stage.close();
+                            System.out.println("Введите ваш ник:");
+                            Scanner scanner = new Scanner(System.in);
+                            dbController.addDataToDB(scanner.nextLine(),score);
+                        } catch (SQLException e) {
+                            System.err.println(e);
+                            System.out.println("something went wrong");
                         }
                     }
                     lastUpdate = now ;

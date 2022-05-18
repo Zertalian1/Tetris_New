@@ -1,15 +1,18 @@
 package com.example.tetris_new;
 import com.example.tetris_new.Controller.DBController;
 import com.example.tetris_new.Controller.GameController;
+import com.example.tetris_new.Controller.MainMenuController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Tetris extends Application {
 
+    private static final MainMenuController mainMenuC = new MainMenuController();
     public static final int SIZE =25;
     public static final int XMAX = SIZE*12;
     public static final int YMAX = SIZE*20;
@@ -21,27 +24,28 @@ public class Tetris extends Application {
     }
 
     @Override
-    public void start(Stage stage){
-
-        int chose = action();
-        switch (chose) {
-            case 1 -> {
-                try {
-                    DBController show = new DBController();
-                    show.getDataFromDB();
-                } catch (SQLException e) {
-                    System.out.println("Can't get data from DB");
+    public void start(Stage stage) throws IOException {
+        int chose;
+        do {
+            chose = action();
+            switch (chose) {
+                case 1 -> {
+                    try {
+                        DBController show = new DBController();
+                        show.getDataFromDB();
+                    } catch (SQLException e) {
+                        System.out.println("Can't get data from DB");
+                    }
                 }
-                Platform.exit();
+                case 2 -> {
+                    GameController game = new GameController();
+                    game.startGame(stage);
+                }
+                case 3 -> {
+                    Platform.exit();
+                }
             }
-            case 2 -> {
-                GameController game = new GameController();
-                game.startGame(stage);
-            }
-            case 3 -> {
-                Platform.exit();
-            }
-        }
+        }while (chose!=3 && chose!=2);
 
     }
 

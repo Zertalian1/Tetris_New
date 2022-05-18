@@ -88,6 +88,7 @@ public class FigureController {
             case I -> figure = new FigureI(XMAX, SIZE);
         }
     }
+
     enum Figures {
         I,
         J,
